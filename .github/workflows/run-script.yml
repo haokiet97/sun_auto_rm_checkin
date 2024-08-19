@@ -1,0 +1,30 @@
+name: Run auto_checkin.py
+
+on:
+  schedule:
+    - cron: '45 7 * * 1-5'
+    - cron: '45 17 * * 1-5'
+
+jobs:
+  run-auto-checkin:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run auto_checkin.py
+      env:
+        WSM_COOKIE: ${{ secrets.WSM_COOKIE }}
+        FOR_GIT_ACTION: true
+      run: python auto_checkin.py

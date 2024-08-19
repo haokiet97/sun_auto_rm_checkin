@@ -46,11 +46,11 @@ class WsmSession(requests.Session):
             return
         form_data = {'authenticity_token': self.authenticity_token}
         res = self.post(self.check_in_url, data=form_data)
-        self.export_cookie_to_file()
-        if "success" not in res.text:
-            self.write_logs("checkin btn FOUND, FAILED! please check WSM!")
-        self.write_logs(f"OK! please check WSM! {res.text}")
-
+        if not os.getenv("FOR_GIT_ACTION", False):
+            self.export_cookie_to_file()
+            if "success" not in res.text:
+                self.write_logs("checkin btn FOUND, FAILED! please check WSM!")
+            self.write_logs(f"OK! please check WSM! {res.text}")
 
     def write_logs(self, message: str):
     	with open("logs.txt", "w+") as f:
@@ -69,9 +69,6 @@ if __name__ == '__main__':
         session.import_cookie_from_file()
     else:
         session.request_cookie = os.getenv("WSM_COOKIE")
-
-    # import cookie from file
-    session.import_cookie_from_file()
     # get authenticity_token for checkin/out
     session.get_authenticity_token()
     # check in/out

@@ -27,5 +27,7 @@ jobs:
     - name: Run auto_checkin.py
       env:
         WSM_COOKIE: ${{ secrets.WSM_COOKIE }}
+        WSM_EMAIL: ${{ secrets.WSM_EMAIL }}
+        WSM_PASSWORD: ${{ secrets.WSM_PASSWORD }}
         FOR_GIT_ACTION: true
       run: python auto_checkin/auto_checkin.py

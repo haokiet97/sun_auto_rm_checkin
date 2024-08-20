@@ -18,7 +18,7 @@ with open(COOKIE_FILE_PATH, "w") as f:
 	f.close()
 with open(CRONTAB_CONFIG_PATH, "w") as f:
 	auto_checkin_sh_path = f"{INSTALL_PY_DIR}/auto_checkin.sh"
-	crontab_config = f"45 7,8,16,18 * * 1-5 TZ=Asia/Ho_Chi_Minh {auto_checkin_sh_path}"
+	crontab_config = f"45 7,8,16,18 * * 1-5 TZ=Asia/Ho_Chi_Minh {auto_checkin_sh_path}\n"
 	f.write(crontab_config)
 	f.close()
 

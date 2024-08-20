@@ -3,8 +3,7 @@ name: Run auto_checkin.py
 on:
   workflow_dispatch:
   schedule:
-    - cron: '45 7 * * 1-5'
-    - cron: '45 17 * * 1-5'
+    - cron: '45 7,17 * * 1-5' # every weekday at 7:45 and 17:45
 
 jobs:
   run-auto-checkin:
